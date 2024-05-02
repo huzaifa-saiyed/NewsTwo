@@ -1,0 +1,252 @@
+<?xml version="1.0" ?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">customer_page_form.customer_page_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Page Information</item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+    </argument>
+    <settings>
+        <buttons>
+            <button name="save" class="Kitchen\News\Block\Adminhtml\Page\Customer\Edit\SaveButton"/>
+            <!-- <button name="delete" class="Kitchen\News\Block\Adminhtml\Page\Edit\DeleteButton"/> -->
+            <button name="back" class="Kitchen\News\Block\Adminhtml\Page\Customer\Edit\BackButton"/>
+        </buttons>
+        <namespace>customer_page_form</namespace>
+        <dataScope>data</dataScope>
+        <deps>
+            <dep>customer_page_form.customer_page_form_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="customer_page_form_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <settings>
+        <!-- Controller folder: admin_route/folder_name/file_name -->
+            <submitUrl path="news1/customer/saveform"/>
+        </settings>
+        <dataProvider class="Kitchen\News\Model\Customer\DataProvider" name="customer_page_form_data_source">
+            <settings>
+                <requestFieldName>customer_id</requestFieldName>
+                <primaryFieldName>customer_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <fieldset name="general">
+        <settings>
+            <label/>
+        </settings>
+        <field name="first_name" sortOrder="10" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">first_name</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">First Name</label>
+                <dataScope>first_name</dataScope>
+            </settings>
+        </field>
+        <field name="last_name" sortOrder="20" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">last_name</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">Last Name</label>
+                <dataScope>last_name</dataScope>
+            </settings>
+        </field>
+        <field name="email" sortOrder="30" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">email</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="validate-email" xsi:type="boolean">true</rule>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">Email</label>
+                <dataScope>email</dataScope>
+            </settings>
+        </field>
+        <field name="gender">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Kitchen\News\Model\Config\Source\Customer\Gender</item>
+                <item name="config" xsi:type="array">                    
+                    <item name="sortOrder" xsi:type="number">25</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">radioset</item>
+                    <item name="label" xsi:type="string" translate="true">Gender</item>
+                    <item name="source" xsi:type="string">gender</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="birth_date" sortOrder="50" formElement="date">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">birth_date</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>Date</dataType>
+                <label translate="true">Date of Birth</label>
+                <dataScope>birth_date</dataScope>
+            </settings>
+        </field>
+         <!-- <field name="profile_image">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">profile_image</item>
+                    <item name="dataType" xsi:type="string">string</item>
+                    <item name="label" xsi:type="string" translate="true">Profile Photo</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="formElement" xsi:type="string">imageUploader</item>
+                    <item name="elementTmpl" xsi:type="string">ui/form/element/uploader/image</item>
+                    <item name="previewTmpl" xsi:type="string">Kitchen_News/image-preview</item>
+                    <item name="required" xsi:type="boolean">false</item>
+                    <item name="sortOrder" xsi:type="number">60</item>
+                    <item name="uploaderConfig" xsi:type="array">
+                        <item name="url" xsi:type="url" path="news1/customer/upload"/>
+                    </item>
+                </item>
+            </argument>
+        </field> -->
+
+        <field name="profile_image" sortOrder="60" formElement="imageUploader">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">profile_image</item>
+                </item>
+            </argument>
+            <settings>
+                <elementTmpl>ui/form/element/uploader/image</elementTmpl>
+                <dataType>string</dataType>
+                <label translate="true">Image</label>
+                <visible>true</visible>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+            <formElements>
+                <imageUploader>
+                    <settings>
+                        <required>true</required>
+                        <uploaderConfig>
+                            <param xsi:type="url" name="url" path="news1/customer/upload"/>
+                        </uploaderConfig>
+                        <openDialogTitle>Media Gallery</openDialogTitle>
+                        <allowedExtensions>jpg jpeg png</allowedExtensions>
+                        <maxFileSize>4194304</maxFileSize>
+                    </settings>
+                </imageUploader>
+            </formElements>
+        </field>
+       
+        <field name="address" sortOrder="70" formElement="textarea">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">address</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>textarea</dataType>
+                <label translate="true">Address</label>
+                <dataScope>address</dataScope>
+            </settings>
+        </field>
+        <field name="is_active" sortOrder="80" formElement="select">
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>select</dataType>
+                <label translate="true">Is Active</label>
+                <dataScope>is_active</dataScope>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="Kitchen\News\Model\Config\Source\Customer\IsActive" />
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+        <field name="hobbies" sortOrder="90" formElement="multiselect" >
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Hobbies</label>
+                <dataScope>hobbies</dataScope>
+                <notice>Use Ctrl+Click for check several values or uncheck value. All unassigned sales channels will be assigned to the Default Stock.</notice>
+                <tooltip>
+                    <description>Notice that only one Stock can be mapped to each Sales Channel. Any previous assignation would be removed for each selected Sales Channel.</description>
+                </tooltip>
+            </settings>
+            <formElements>
+                <multiselect>
+                    <settings>
+                        <options class="Kitchen\News\Model\Config\Source\Customer\Hobbies"/>
+                    </settings>
+                </multiselect>
+            </formElements>
+        </field>
+        <!-- <field name="newsletter_subscription" sortOrder="95" formElement="checkbox">
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>select</dataType>
+                <dataScope>newsletter_subscription</dataScope>
+                <label translate="true">Subscription</label>
+            </settings>
+            <formElements>
+                <checkbox>
+                    <settings>
+                        <valueMap>
+                            <map name="false" xsi:type="string">No</map>
+                            <map name="true" xsi:type="string">Yes</map>
+                        </valueMap>
+                        <prefer>toggle</prefer>
+                    </settings>
+                </checkbox>
+            </formElements>
+        </field> -->
+        <field name="newsletter_subscription">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Kitchen\News\Model\Config\Source\Customer\Subscription</item>
+                <item name="config" xsi:type="array">                    
+                    <item name="sortOrder" xsi:type="number">95</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">checkboxset</item>
+                    <item name="label" xsi:type="string" translate="true">Subscription</item>
+                    <item name="source" xsi:type="string">newsletter_subscription</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+</form>

@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">cron_schedule_grid.cron_schedule_grid_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <buttons>
+            <button name="add">
+                <url path="news1/form/index"/>
+                <class>primary</class>
+                <label translate="true">Add New Page</label>
+            </button>
+        </buttons>
+        <spinner>cron_schedule_columns</spinner>
+        <!-- it's depends on data -->
+        <deps>
+            <dep>cron_schedule_grid.cron_schedule_grid_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="cron_schedule_grid_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <storageConfig>
+                <param name="indexField" xsi:type="string">page_id</param>
+            </storageConfig>
+            <!-- something went wrong msg display -->
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>Kitchen_News::cron_schedule_grid</aclResource>
+        <dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider" name="cron_schedule_grid_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>schedule_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filterSearch name="fulltext"/>
+        <filters name="listing_filters"/>
+        <massaction name="listing_massaction">
+             <action name="delete">
+                <settings>
+                    <confirm>
+                        <message translate="true">Are you sure you want to delete selected items?</message>
+                        <title translate="true">Delete items</title>
+                    </confirm>
+                    <url path="news1/page/massDelete"/>
+                    <type>delete</type>
+                    <label translate="true">Delete</label>
+                </settings>
+            </action>
+            <action name="disable">
+                <settings>
+                    <url path="news1/page/massDisable"/>
+                    <type>disable</type>
+                    <label translate="true">De-Active</label>
+                </settings>
+            </action>
+             <action name="enable">
+                <settings>
+                    <url path="news1/page/massEnable"/>
+                    <type>enable</type>
+                    <label translate="true">Active</label>
+                </settings>
+            </action>
+             <action name="edit">
+                <settings>
+                    <callback>
+                        <target>editSelected</target>
+                        <provider>cron_schedule_grid.cron_schedule_grid.cron_schedule_columns_editor</provider>
+                    </callback>
+                    <type>edit</type>
+                    <label translate="true">Edit</label>
+                </settings>
+            </action>
+        </massaction>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+    <columns name="cron_schedule_columns">
+        <settings>
+            <editorConfig>
+                <param name="clientConfig" xsi:type="array">
+                    <item name="saveUrl" xsi:type="url" path="news1/page/inlineEdit"/>
+                    <item name="validateBeforeSave" xsi:type="boolean">false</item>
+                </param>
+                <param name="indexField" xsi:type="string">news_id</param>
+                <param name="enabled" xsi:type="boolean">true</param>
+                <param name="selectProvider" xsi:type="string">cron_schedule_grid.cron_schedule_grid.cron_schedule_columns.ids</param>
+            </editorConfig>
+            <childDefaults>
+                <param name="fieldAction" xsi:type="array">
+                    <item name="provider" xsi:type="string">cron_schedule_grid.cron_schedule_grid.cron_schedule_columns_editor</item>
+                    <item name="target" xsi:type="string">startEdit</item>
+                    <item name="params" xsi:type="array">
+                        <item name="0" xsi:type="string">${ $.$data.rowIndex }</item>
+                        <item name="1" xsi:type="boolean">true</item>
+                    </item>
+                </param>
+            </childDefaults>
+        </settings>
+        <!-- to use below tag in massaction -->
+        <selectionsColumn name="ids">
+            <settings>
+                <indexField>schedule_id</indexField>
+                <resizeEnabled>false</resizeEnabled>
+                <resizeDefaultWidth>55</resizeDefaultWidth>
+            </settings>
+        </selectionsColumn>
+        <column name="schedule_id">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">Schedule ID</label>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+        <column name="job_code">
+            <settings>
+                <filter>text</filter>
+                <editor>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">true</rule>
+                    </validation>
+                    <editorType>text</editorType>
+                </editor>
+                <label translate="true">Job Code</label>
+            </settings>
+        </column>
+        <column name="status">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Status</label>
+            </settings>
+        </column>
+        <column name="messages">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Messages</label>
+            </settings>
+        </column>
+        <column name="created_at" class="Magento\Ui\Component\Listing\Columns\Date" component="Magento_Ui/js/grid/columns/date">
+            <settings>
+                <filter>dateRange</filter>
+                <dataType>date</dataType>
+                <label translate="true">Created At</label>
+            </settings>
+        </column>
+        <column name="scheduled_at" class="Magento\Ui\Component\Listing\Columns\Date" component="Magento_Ui/js/grid/columns/date">
+            <settings>
+                <filter>dateRange</filter>
+                <dataType>date</dataType>
+                <label translate="true">Scheduled At</label>
+            </settings>
+        </column>
+        <column name="executed_at" class="Magento\Ui\Component\Listing\Columns\Date" component="Magento_Ui/js/grid/columns/date">
+            <settings>
+                <filter>dateRange</filter>
+                <dataType>date</dataType>
+                <label translate="true">Executed At</label>
+            </settings>
+        </column>
+        <column name="finished_at" class="Magento\Ui\Component\Listing\Columns\Date" component="Magento_Ui/js/grid/columns/date">
+            <settings>
+                <filter>dateRange</filter>
+                <dataType>date</dataType>
+                <label translate="true">Finished At</label>
+            </settings>
+        </column>
+        <!-- <column name="a_id">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">Admin ID</label>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+        <column name="admin_name">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Admin Name</label>
+            </settings>
+        </column> -->
+        <actionsColumn name="actions" class="Kitchen\News\Ui\Component\Listing\Column\PageActions">
+            <settings>
+                <indexField>schedule_id</indexField>
+                <resizeEnabled>false</resizeEnabled>
+                <resizeDefaultWidth>107</resizeDefaultWidth>
+            </settings>
+        </actionsColumn>
+    </columns>
+</listing>

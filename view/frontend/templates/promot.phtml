@@ -1,0 +1,57 @@
+<?php if ($block->isModuleEnabled('Yes')) :
+
+    $currentTime = strtotime('now');
+
+    $start = strtotime($block->getStartDate());
+    $end = strtotime($block->getEndDate());
+    // echo $start . "<br>";
+    // echo $end . "<br>";
+    // echo $currentTime;
+    if (($currentTime == $start || $currentTime < $start) && $currentTime <= $end) :
+
+?>
+        <div>
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Upload File</th>
+                    <th>Status</th>
+                </tr>
+                <tr>
+                    <td><?php echo $block->isModuleEnabled(); ?></td>
+                    <td><?php echo $block->getDisplayName(); ?></td>
+                    <td><?php echo $block->getDisplayDescription(); ?></td>
+                    <td><?php echo $block->getStartDate(); ?></td>
+                    <td><?php echo $block->getEndDate(); ?></td>
+                    <td><?php echo $block->fileUpload(); ?></td>
+                    <td><?php echo $block->isActive() ? 'Active' : 'Not-Active'; ?></td>
+                </tr>
+            </table>
+        </div>
+    <?php else : ?>
+        <h4>Validity is expire...</h4>
+    <?php endif; ?>
+<?php else : ?>
+    <h4>Module is not active. </h4>
+<?php endif; ?>
+
+<!-- <table>
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Status</th>
+    </tr>
+    <tr>
+        <td><?php echo $block->getDisplayName(); ?></td>
+        <td><?php echo $block->getDisplayDescription(); ?></td>
+        <td><?php echo $block->getStartDate(); ?></td>
+        <td><?php echo $block->getEndDate(); ?></td>
+        <td><?php echo $block->isActive() ? 'Active' : 'Not-Active'; ?></td>
+    </tr>
+</table> -->

@@ -1,0 +1,110 @@
+<!-- <img src="http://us365.localhost.com/media/pics/og-image-k365.png" alt="Kitchen365" srcset=""> -->
+
+<?php
+
+
+/**
+ * @var Kitchen\News\Block\Index $block
+ */
+
+
+
+//  echo $block->msg();
+
+
+//  $hlp = $this->helper('Kitchen\News\Helper\Data');
+//  echo $hlp->getWebsite();
+
+// echo $block->show();
+
+echo $block->datalog();
+?>
+
+<h1 class="page-heading">
+    Hello
+</h1>
+
+<button id="btn">Button one</button>
+<button class="btn">Button two</button>
+
+
+<!-- <form action="<?= $this->getURL('news/index/save'); ?>" method="post">
+<input type="hidden" name="news_id" value="<?php echo $this->getRequest()->getparam("id");?>">
+    <label for="newsTitle">Title:</label>
+    <input type="text" name="newsTitle" id="">
+    <label for="newsDesc">Description:</label>
+    <textarea name="newsDesc" id="" cols="10" rows="5"></textarea>
+    <label for="newsFilter">Filter: </label>
+    <select name="newsFilter" id="">
+        <option value="Active">Active</option>
+        <option value="Not-Active">De-Active</option>
+    </select>
+    <br>
+    <button type="submit" name="btnSubmit">SUBMIT</button>  
+</form>
+<hr>
+
+<form action="<?= $this->getURL('news/index/index'); ?>" method="post">
+    <label for="newsFilter">Filter: </label>
+    <select name="newsFilter" id="">
+        <option value="1">Active</option>
+        <option value="0">De-Active</option>
+    </select>
+    <button type="submit" name="btnFilter">FILTER</button>  
+</form>
+<hr>
+
+<form action="<?= $this->getURL('news/index/index'); ?>" method="post">
+    <label for="newsSort">Sorting: </label>
+    <select name="newsSort" id="">
+        <option value="DESC">Descending</option>
+        <option value="ASC">Ascending</option>
+    </select>
+    <button type="submit" name="btnSort">SORT</button>  
+</form>
+<hr> -->
+
+<!-- <form action="<?= $this->getURL('news/index/deleteall'); ?>" method="post">
+    <button type="submit" name="btnDelete">DELETE ALL</button>  
+</form>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Active</th>
+        <th>Create Date</th>
+        <th>Update Date</th>
+        <th>Action</th>
+    </tr>
+    <?php
+         $id = $this->getRequest()->getparam("id");
+         echo $block->showData();
+    ?>
+</table> -->
+
+<?php 
+// static block via .phtml
+// echo $this->getLayout()
+// ->createBlock("Magento\Cms\Block\Block")
+// ->setBlockId("about")
+// ->toHtml();
+
+?>
+
+<script>
+        require([
+        'jquery'
+    ], function () {
+        alert("This is Require JS");        
+    });
+
+    jQuery(document).ready( function() {
+        jQuery("#btn").click(function(){
+            alert("Done");
+        });
+        jQuery(".btn").click(function(){
+            alert("Done");
+        });
+    });
+</script>
